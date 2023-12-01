@@ -1,9 +1,8 @@
 import Link from 'next/link'
-import { getAllPosts } from '../lib/ghost';
 import Date from '../components/date';
 import Head from 'next/head';
 import Toggle from '../components/Toggle'
-import Footer from './components/footer';
+import Footer from '../components/footer';
 
 import fs from 'fs'
 import matter from 'gray-matter'

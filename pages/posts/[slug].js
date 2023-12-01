@@ -9,7 +9,7 @@ import Link from "next/link";
 import path from "path";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import Toggle from "@/components/Toggle";
-import Footer from "../components/footer";
+import Footer from "../../components/footer";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how

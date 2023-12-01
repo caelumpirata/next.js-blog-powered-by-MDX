@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { getAllPosts } from '../lib/ghost';
-import Footer from './components/footer';
+import Footer from '../components/footer';
 import Head from 'next/head';
 import Toggle from '../components/Toggle'
 
