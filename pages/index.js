@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Date from '../components/date';
 import Head from 'next/head';
 import Toggle from '../components/Toggle'
 import Footer from '../components/footer';
@@ -99,7 +98,7 @@ export default function Home({ posts }) {
                     </Link>
               ))} */}
 
-{posts.map((post) => (
+            {posts.map((post) => (
             <Link className="flex flex-col-reverse justify-between py-4 border-b border-gray-200 dark:border-gray-800 sm:flex-row sm:items-baseline"
              key={post.filePath}
               as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}

@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-import { Analytics } from '@vercel/analytics/react';
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 
@@ -23,7 +22,6 @@ export default function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
 
         </ThemeProvider>
-      <Analytics />
     </main>
   )
 }
