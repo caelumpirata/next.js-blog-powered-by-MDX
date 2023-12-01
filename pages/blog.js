@@ -70,6 +70,7 @@ export default function Home({ posts }) {
               href={`/posts/[slug]`}
             >
               <h3 className="dark:text-white text-xl font-bold">{post.data.title}</h3> 
+              <p className="mt-3 dark:text-gray-300 text-gray-600">{post.data.excerpt}</p>
               
             </Link>
         ))}

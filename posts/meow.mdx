@@ -1,17 +1,26 @@
 ---
 title: Meow
 description: Meow
+excerpt: 'Next.js has a built-in Image component that comes with a lot of performance optimization features when you are using it.'
 ---
 
 import Image from 'next/image'
 
 
-## h2
+## h2 
     <Image
       src="/favicon.png"
-      width={500}
-      height={500}
+     width={0}
+     height={0}
+      sizes="100vw"
+      style={{ width: '100%', height: 'auto' }}
       alt="Picture of the author"
     />
+
+    This is a list in markdown:
+ 
+- One
+- Two
+- Three
 
 This is an example post. There's another one [here](/blog).
