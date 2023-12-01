@@ -8,7 +8,6 @@ import Footer from './components/footer';
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
-import Layout from '../components/Layout'
 import { postFilePaths, POSTS_PATH } from '../utils/mdxUtils'
 
 

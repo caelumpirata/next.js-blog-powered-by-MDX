@@ -7,8 +7,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import path from "path";
-import CustomLink from "../../components/CustomLink";
-import Layout from "../../components/Layout";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import Toggle from "@/components/Toggle";
 import Footer from "../components/footer";
@@ -18,13 +16,13 @@ import Footer from "../components/footer";
 // to handle import statements. Instead, you must include components in scope
 // here.
 const components = {
-  a: CustomLink,
   // It also works with dynamically-imported components, which is especially
   // useful for conditionally loading components for certain routes.
   // See the notes in README.md for more details.
-  TestComponent: dynamic(() => import("../../components/TestComponent")),
+
   Head,
   Image,
+  Link,
 };
 
 export const getStaticProps = async ({ params }) => {
@@ -153,6 +151,7 @@ export default function PostPage({ source, frontMatter }) {
               <h1 className="mb-3 text-black dark:text-white text-3xl xs:text-4xl font-extrabold tracking-tight">
                 {frontMatter.title}
               </h1>
+  
             </div>
           </header>
           <div className="mx-auto max-w-2xl px-4 md:px-0 prose dark:prose-dark lg:prose-lg mt-8 sm:mt-12">
