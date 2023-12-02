@@ -1,17 +1,15 @@
-import { Html, Head, Main, NextScript } from 'next/document'
-
+import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
-      <link rel="icon" type="image/webp" sizes="128x128" href="/trees.svg" />
+        <link rel="icon" type="image/webp" sizes="128x128" href="/trees.svg" />
       </Head>
       <body className="antialiased">
         <Main />
         <NextScript />
       </body>
-
     </Html>
-  )
+  );
 }
