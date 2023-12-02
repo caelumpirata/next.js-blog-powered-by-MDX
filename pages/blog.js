@@ -66,8 +66,8 @@ export default function Home({ posts }) {
         {posts.map((post) => (
             <Link className="block mt-8 p-4 bg-gray-100 dark:bg-gray-900 rounded-md sm:p-8"
             key={post.filePath}
-              as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
-              href={`/posts/[slug]`}
+              as={`/blog/${post.filePath.replace(/\.mdx?$/, '')}`}
+              href={`/blog/[slug]`}
             >
               <div className="flex-col">
                     <time className="pb-2 dark:text-gray-400 text-gray-500 whitespace-nowrap text-sm"><Date dateString={post.data.date}/></time>
