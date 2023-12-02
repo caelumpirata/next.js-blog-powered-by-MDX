@@ -1,11 +1,24 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter'; // Library to parse frontmatter
+import { parseISO, format } from 'date-fns';
 
-// POSTS_PATH is useful when you want to get the path to a specific file
-export const POSTS_PATH = path.join(process.cwd(), 'posts')
+export const POSTS_PATH = path.join(process.cwd(), 'posts');
 
-// postFilePaths is the list of all mdx files inside the POSTS_PATH directory
+// Function to extract date from MDX frontmatter
+const extractDateFromFrontmatter = (content) => {
+  const { data } = matter(content);
+  return data.date || ''; // Assuming 'date' is the field containing the date
+};
+
 export const postFilePaths = fs
   .readdirSync(POSTS_PATH)
-  // Only include md(x) files
-  .filter((path) => /\.mdx?$/.test(path))
+  .filter((fileName) => /\.mdx?$/.test(fileName))
+  // Sort posts by date
+  .sort((fileNameA, fileNameB) => {
+    const contentA = fs.readFileSync(path.join(POSTS_PATH, fileNameA), 'utf8');
+    const contentB = fs.readFileSync(path.join(POSTS_PATH, fileNameB), 'utf8');
+    const dateA = parseISO(extractDateFromFrontmatter(contentA));
+    const dateB = parseISO(extractDateFromFrontmatter(contentB));
+    return dateB - dateA; // Sort in descending order (most recent first)
+  });
