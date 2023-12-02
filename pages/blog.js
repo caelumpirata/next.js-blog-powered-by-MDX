@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Head from 'next/head';
 import Toggle from '../components/Toggle'
 import Footer from '../components/footer';
-
+import Date from '@/components/date';
 import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
@@ -69,8 +69,11 @@ export default function Home({ posts }) {
               as={`/posts/${post.filePath.replace(/\.mdx?$/, '')}`}
               href={`/posts/[slug]`}
             >
-              <h3 className="dark:text-white text-xl font-bold">{post.data.title}</h3> 
-              <p className="mt-3 dark:text-gray-300 text-gray-600">{post.data.excerpt}</p>
+              <div className="flex-col">
+                    <time className="pb-2 dark:text-gray-400 text-gray-500 whitespace-nowrap text-sm"><Date dateString={post.data.date}/></time>
+                    <h3 className="dark:text-white text-xl font-bold">{post.data.title} </h3>   
+                </div>
+              <p className="mt-3 dark:text-gray-300 text-gray-600">{post.data.description}</p>
               
             </Link>
         ))}

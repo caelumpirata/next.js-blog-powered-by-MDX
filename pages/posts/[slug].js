@@ -10,6 +10,7 @@ import path from "path";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import Toggle from "@/components/Toggle";
 import Footer from "../../components/footer";
+import Date from "@/components/date";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -151,6 +152,10 @@ export default function PostPage({ source, frontMatter }) {
               <h1 className="mb-3 text-black dark:text-white text-3xl xs:text-4xl font-extrabold tracking-tight">
                 {frontMatter.title}
               </h1>
+              <div className="flex items-center justify-between">
+                        <time className="dark:text-gray-400 text-gray-500 xs:text-sm text-xs"><Date dateString={frontMatter.date}/></time>
+                       
+              </div>
   
             </div>
           </header>
