@@ -50,7 +50,7 @@ export default function Home({ posts }) {
             <p className="mt-2 dark:text-gray-300 text-gray-500 text-lg sm:text-xl"> 
               My personal projects are on&nbsp;
               <Link href="https://github.com/caelumpirata" target="_blank" rel="noreferrer">
-                 Github, as caelumpirata</Link>.
+                 GitHub</Link>.
               </p>
           </div>
 

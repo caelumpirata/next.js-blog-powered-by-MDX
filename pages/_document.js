@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-      <link rel="icon" type="image/webp" sizes="128x128" href="/favicon.png" />
+      <link rel="icon" type="image/webp" sizes="128x128" href="/trees.svg" />
       </Head>
       <body className='antialiased'>
         <Main />
