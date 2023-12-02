@@ -6,26 +6,11 @@ const Footer = () => {
       <div className="mx-auto max-w-2xl px-4 md:px-0 ">
         <div className="flex items-end justify-between py-8 border-t border-gray-300 dark:border-gray-700 sm:py-16">
           <ul className="mr-16 xs:mr-32">
-            <li>
-              <Link className="inline-block py-2 text-gray-500 text-xs tracking-wider uppercase sm:text-sm" href="/">
-                Home
+            <p className="inline-block py-2 text-gray-500 text-xs tracking-wider  sm:text-sm">Original articles on this site are <Link className="inline-block text-gray-500 text-xs  underline uppercase sm:text-sm" href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
+              CC BY-NC-SA
               </Link>
-            </li>
-            {/* <li>
-              <Link className="inline-block py-2 text-gray-500 text-xs tracking-wider uppercase sm:text-sm" href="/about">
-                About
-              </Link>
-            </li> */}
-            <li>
-              <Link className="inline-block py-2 text-gray-500 text-xs tracking-wider uppercase sm:text-sm" href="/blog">
-                Blog
-              </Link>
-            </li>
-            <li>
-              <Link className="inline-block py-2 text-gray-500 text-xs tracking-wider uppercase sm:text-sm" href="/projects">
-                Projects
-              </Link>
-            </li>
+            
+             licensed unless otherwise stated.</p>
           </ul>
 
           <ul className="flex">
