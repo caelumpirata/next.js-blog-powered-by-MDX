@@ -29,7 +29,7 @@ export function getStaticProps() {
 
 export default function Home({ posts }) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Head>
           <title>Blog | Caelum Pirata</title>
           <meta name="description" content="Blog written by Caelum Pirata."key="desc" />
@@ -90,6 +90,6 @@ export default function Home({ posts }) {
       </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 } 

@@ -5,7 +5,7 @@ import Toggle from '../components/Toggle'
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <>
       <Head>
           <title>Caelum Pirata</title>
           <meta name="description" content="About Caelum Pirata. A Software engineer who loves Learning in public."key="desc" />
@@ -58,6 +58,6 @@ export default function Home() {
     </main>
     <Footer />
 
-    </div>
+    </>
   );
 } 

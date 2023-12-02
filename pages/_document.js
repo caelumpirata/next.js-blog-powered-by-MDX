@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
       <link rel="icon" type="image/webp" sizes="128x128" href="/trees.svg" />
       </Head>
-      <body className='antialiased'>
+      <body className="antialiased">
         <Main />
         <NextScript />
       </body>
