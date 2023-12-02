@@ -153,10 +153,10 @@ export default function PostPage({ source, frontMatter }) {
                 {frontMatter.title}
               </h1>
               <div className="flex items-center justify-between">
-                        <time className="dark:text-gray-400 text-gray-500 xs:text-sm text-xs"><Date dateString={frontMatter.date}/></time>
-                       
+                <time className="dark:text-gray-400 text-gray-500 xs:text-sm text-xs">
+                  <Date dateString={frontMatter.date} />
+                </time>
               </div>
-  
             </div>
           </header>
           <div className="mx-auto max-w-2xl px-4 md:px-0 prose dark:prose-dark lg:prose-lg mt-8 sm:mt-12">
