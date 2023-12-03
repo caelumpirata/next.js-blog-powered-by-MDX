@@ -8,8 +8,9 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Layout({ children }) {
   return (
     <>
-      <div className={`${inter.className} flex flex-col min-h-screen`}>{children}</div>
-      <Footer />
+      <div className={`${inter.className} flex flex-col min-h-screen`}>{children}
+        <Footer />
+      </div>
     </>
   );
 }
