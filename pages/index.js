@@ -67,7 +67,7 @@ export default function Home() {
               </h1>
               <p className="prose dark:prose-dark md:prose-lg mt-8 sm:mt-4">
                 Welcome to my Online home. I write software, mostly for the open
-                Web, and I deeply value the art of learning in public.
+                Web.
               </p>
             </div>
             {/* image content goes here */}
@@ -75,8 +75,7 @@ export default function Home() {
 
           <div className="prose dark:prose-dark sm:prose-lg sm:mt-8">
             <p>
-              This website is a place for me to scratch the writer&apos;s itch.
-              I publish ideas and lessons I learn while pursuing the things that
+              This website is a place for me to publish ideas and lessons I learn while pursuing the things that
               peak my curiosity. <Link href="/blog">My writing</Link> spans
               topics like software, designs and video editing.
             </p>
