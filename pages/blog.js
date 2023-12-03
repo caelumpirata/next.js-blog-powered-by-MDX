@@ -115,7 +115,6 @@ export default function Home({ posts }) {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

@@ -201,7 +201,6 @@ export default function PostPage({ source, frontMatter }) {
           </div>
         </article>
       </main>
-      <Footer />
     </div>
   );
 }

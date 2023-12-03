@@ -1,15 +1,13 @@
 import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import Layout from "@/components/layout";
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <main className={inter.className} >
       <ThemeProvider attribute="class">
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
-    </main>
   );
 }
