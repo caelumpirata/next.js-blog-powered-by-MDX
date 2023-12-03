@@ -1,5 +1,5 @@
 
-import Footer from "./Footer";
+import Footer from "./footer";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
