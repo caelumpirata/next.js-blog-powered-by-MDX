@@ -5,13 +5,13 @@ const Footer = () => {
     <footer className="mt-16 sm:mt-18 ">
       <div className="mx-auto max-w-2xl px-4 md:px-0 ">
         <div className="flex items-end justify-between py-8 border-t border-gray-300 dark:border-gray-700 sm:py-8">
-          <ul className="mr-16 xs:mr-32">
+          <div className="mr-16 xs:mr-32">
             <p className="inline-block py-2 text-gray-500 text-xs tracking-wider  sm:text-sm">Original articles on this site are <Link className="inline-block text-gray-500 text-xs  underline uppercase sm:text-sm" href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
               CC BY-NC-SA
               </Link>
             
              licensed unless otherwise stated.</p>
-          </ul>
+          </div>
 
           <ul className="flex">
             <li className="-ml-3"><Link className="inline-block px-3 text-gray-500 text-xs tracking-wider uppercase sm:text-sm" href="https://twitter.com/caelumpirata"  ><svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="text-xl" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></Link></li>
