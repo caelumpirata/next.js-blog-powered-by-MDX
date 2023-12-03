@@ -35,3 +35,40 @@ spec:
 ```
 This is an example post. There's another one 
 <Link href="/blog" className="dark:text-white dark:bg-gray-800 text-gray-700  bg-black bg-opacity-5 w-full px-6 py-2 inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none" >here</Link>.
+
+This is a writeup based on a presentation I gave at BrazilJS in August 2014. It builds on some of the ideas I've been [blogging](https://cloudup.com/blog/the-need-for-speed) [about](https://cloudup.com/blog/introducing-mydb) recently related mostly to UX and performance.
+
+I want to introduce 7 actionable principles for websites that want to make use of JavaScript to control their UI. They are the result of my experience as a web developer, but also as a long-time user of the WWW.
+
+JavaScript has undeniably become an indispensable tool for frontend developers. Its usage is now expanding into other areas like [servers](http://nodejs.org/) and [microcontrollers](https://tessel.io/). It's the language of choice for [introducing](http://web.stanford.edu/class/cs101/) computer science concepts by prestigious universities.
+
+Yet a lot of questions on its precise role and usage on the web remain a mystery, even to many framework and library authors.
+
+- Should JavaScript be used to replace browser functions like history, navigation and page rendering?
+- Is the backend dying? Should I render HTML at all?
+- Are Single Page Applications (SPAs) the future?
+- Is JS supposed to augment pages for websites, but render pages in web apps?
+- Should techniques like PJAX or TurboLinks be used?
+- What's the precise distinction between a website and a web application? Should there be one at all?
+
+What follows is my attempt to answer these. My approach is to examine the usage of JavaScript *exclusively* from the lens of user experience (UX). In particular, I put a strong focus on the idea of minimizing the time it takes the user to get the data they are interested in. Starting with networking fundamentals all the way to predicting the future.
+
+1. [Pre-rendered pages are not optional](#pre-rendered-pages-are-not-optional)
+1. [Act immediately on user input](#act-immediately-on-user-input)
+1. [React to data changes](#react-to-data-changes)
+1. [Control the data exchange with the server](#control-the-data-exchange-with-the-server)
+1. [Don't break history, enhance it](#dont-break-history-enhance-it)
+1. [Push code updates](#push-code-updates)
+1. [Predict behavior](#predict-behavior)
+
+{/* <h2 id="pre-rendered-pages-are-not-optional"> */}
+  ## 1. Pre rendered pages are not optional
+{/* </h2> */}
+
+> You might expect Google to try to build 100% reliable services—ones that
+> never fail. It turns out that past a certain point, however, increasing
+> reliability is worse for a service (and its users) rather than better!
+> Extreme reliability comes at a cost: maximizing stability limits how fast
+> new features can be developed and how quickly products can be delivered to
+> users, and dramatically increases their cost, which in turn reduces the
+> numbers of features a team can afford to offer
