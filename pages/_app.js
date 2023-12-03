@@ -6,10 +6,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <div className={`${inter.className} flex flex-col min-h-screen`}>
+    <main className={inter.className} >
       <ThemeProvider attribute="class">
         <Component {...pageProps} />
       </ThemeProvider>
-    </div>
+    </main>
   );
 }
