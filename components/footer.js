@@ -2,9 +2,9 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <footer className="mt-16 sm:mt-24 ">
+    <footer className="mt-16 sm:mt-18 ">
       <div className="mx-auto max-w-2xl px-4 md:px-0 ">
-        <div className="flex items-end justify-between py-8 border-t border-gray-300 dark:border-gray-700 sm:py-16">
+        <div className="flex items-end justify-between py-8 border-t border-gray-300 dark:border-gray-700 sm:py-8">
           <ul className="mr-16 xs:mr-32">
             <p className="inline-block py-2 text-gray-500 text-xs tracking-wider  sm:text-sm">Original articles on this site are <Link className="inline-block text-gray-500 text-xs  underline uppercase sm:text-sm" href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
               CC BY-NC-SA

@@ -580,7 +580,7 @@ select {
 }
 
 .prose pre {
-  color: #e5e5e5;
+  /* color: #e5e5e5; */
   background-color: #262626;
   overflow-x: auto;
   font-size: .875em;
