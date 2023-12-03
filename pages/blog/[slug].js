@@ -188,7 +188,7 @@ export default function PostPage({ source, frontMatter }) {
                     <Suspense fallback={<p>Loading view count...</p>}>{viewCount} 
                     </Suspense> views</p> */}
                     <p className="dark:text-gray-400 text-gray-500 hover:text-indigo-500 text-xs tracking-wide">
-                        {viewCount !== null ? viewCount : '🥱'} views
+                        {viewCount} views
                     </p>
                 
               </div>
