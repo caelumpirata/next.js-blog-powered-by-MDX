@@ -80,12 +80,12 @@ export default function Home() {
               topics like software, designs and video editing.
             </p>
             <p>
-              This website is a place for me to publish ideas and lessons I learn while pursuing the things that
+              This website is a place for me to publish ideas and lessons I learn while pursuing the things
               peak my curiosity. <Link href="/blog">My writing</Link> spans
               topics like software, designs and video editing.
             </p>
             <p >
-              This website is a place for me to publish ideas and lessons I learn while pursuing the things that
+              This website is a place for me to publish ideas and lessons I learn while pursuing  things that
               peak my curiosity. <Link href="/blog">My writing</Link> spans
               topics like software, designs and video editing.
             </p>
