@@ -15,7 +15,6 @@ import { useEffect, useState } from 'react';
 import { Suspense } from "react";
 import { useRouter } from 'next/router'; // Import the useRouter hook
 
-import Loading from "../loading";
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
 // to handle import statements. Instead, you must include components in scope
@@ -189,9 +188,7 @@ export default function PostPage({ source, frontMatter }) {
                     <Suspense fallback={<p>Loading view count...</p>}>{viewCount} 
                     </Suspense> views</p> */}
                     <p className="dark:text-gray-400 text-gray-500 hover:text-indigo-500 text-xs tracking-wide">
-                      <Suspense fallback={null}>
-                        {viewCount !== null ? viewCount : '🥱'}
-                      </Suspense> views
+                        {viewCount !== null ? viewCount : '🥱'} views
                     </p>
                 
               </div>
