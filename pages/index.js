@@ -79,6 +79,16 @@ export default function Home() {
               peak my curiosity. <Link href="/blog">My writing</Link> spans
               topics like software, designs and video editing.
             </p>
+            <p className="prose dark:prose-dark md:prose-lg mt-8 sm:mt-4">
+              This website is a place for me to publish ideas and lessons I learn while pursuing the things that
+              peak my curiosity. <Link href="/blog">My writing</Link> spans
+              topics like software, designs and video editing.
+            </p>
+            <p className="prose dark:prose-dark md:prose-lg mt-8 sm:mt-4">
+              This website is a place for me to publish ideas and lessons I learn while pursuing the things that
+              peak my curiosity. <Link href="/blog">My writing</Link> spans
+              topics like software, designs and video editing.
+            </p>
           </div>
         </div>
       </main>
