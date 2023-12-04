@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
-import Toggle from "@/components/toggle";
+import Toggle from "../components/Toggle";
 
 export default function Home() {
   return (
