@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Your Name]]></title>
+        <description><![CDATA[Your Name]]></description>
+        <link>https://demo.caelumpirata.com</link>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Mon, 04 Dec 2023 09:16:56 GMT</lastBuildDate>
+        <atom:link href="https://demo.caelumpirata.com/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[7 Principles of Rich Web Applications]]></title>
+            <description><![CDATA[dfjksdjs]]></description>
+            <link>/posts/good</link>
+            <guid isPermaLink="true">/posts/good</guid>
+            <pubDate>Wed, 23 Nov 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Mod Apps]]></title>
+            <description><![CDATA[dfjksdjs]]></description>
+            <link>/posts/mod-apps</link>
+            <guid isPermaLink="true">/posts/mod-apps</guid>
+            <pubDate>Wed, 23 Nov 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Hello World]]></title>
+            <description><![CDATA[dfjksdjs]]></description>
+            <link>/posts/hello-world</link>
+            <guid isPermaLink="true">/posts/hello-world</guid>
+            <pubDate>Thu, 20 Nov 2014 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Meow]]></title>
+            <description><![CDATA[dfjksdjs]]></description>
+            <link>/posts/meow</link>
+            <guid isPermaLink="true">/posts/meow</guid>
+            <pubDate>Tue, 20 Nov 2001 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Example Post]]></title>
+            <description><![CDATA[dfjksdjs]]></description>
+            <link>/posts/example-post</link>
+            <guid isPermaLink="true">/posts/example-post</guid>
+            <pubDate>Sat, 20 Nov 1999 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

@@ -10,14 +10,14 @@ async function generate() {
     feed_url: 'https://demo.caelumpirata.com/feed.xml'
   })
 
-  const posts = await fs.readdir(path.join(__dirname, '..', 'pages', 'posts'))
+  const posts = await fs.readdir(path.join(__dirname, '..', 'posts'))
   const allPosts = []
   await Promise.all(
     posts.map(async (name) => {
       if (name.startsWith('index.')) return
 
       const content = await fs.readFile(
-        path.join(__dirname, '..', 'pages', 'posts', name)
+        path.join(__dirname, '..', 'posts', name)
       )
       const frontmatter = matter(content)
 
@@ -26,7 +26,7 @@ async function generate() {
         url: '/posts/' + name.replace(/\.mdx?/, ''),
         date: frontmatter.data.date,
         description: frontmatter.data.description,
-        categories: frontmatter.data.tag.split(', '),
+        // categories: frontmatter.data.tag.split(', '),
         author: frontmatter.data.author
       })
     })
