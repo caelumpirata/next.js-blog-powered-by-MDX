@@ -7,8 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import path from "path";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
-import Toggle from "../../components/toggle";
-import Date from "../../components/date";
+import Toggle from "@/components/toggle";
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'; // Import the useRouter hook
 
