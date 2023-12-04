@@ -17,6 +17,7 @@ import { useRouter } from 'next/router'; // Import the useRouter hook
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
 // to handle import statements. Instead, you must include components in scope
 // here.
+
 const components = {
   // It also works with dynamically-imported components, which is especially
   // useful for conditionally loading components for certain routes.
