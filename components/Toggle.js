@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 
-const Toggle = ({ children }) => {
+export default function Toggle ({ children }){
   const [isToggled, setIsToggled] = useState(false);
 
   const toggleHeader = () => {
@@ -133,4 +133,4 @@ const Toggle = ({ children }) => {
   );
 };
 
-export default Toggle;
+
