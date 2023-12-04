@@ -7,21 +7,3 @@ module.exports = nextConfig
 
 
  
-
-
-
-
-
-
-// module.exports = {
-//   images: {
-//     remotePatterns: [
-//       {
-//         protocol: 'https',
-//         hostname: 'ghost.caelumpirata.com',
-//         port: '',
-//         pathname: '/content/images/**',
-//       },
-//     ],
-//   },nextConfig
-// }

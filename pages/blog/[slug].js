@@ -8,11 +8,9 @@ import Image from "next/image";
 import Link from "next/link";
 import path from "path";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
-import Toggle from "@/components/Toggle";
-import Footer from "@/components/Footer";
-import Date from "@/components/Date";
+import Toggle from "../../components/Toggle";
+import Date from "../../components/Date";
 import { useEffect, useState } from 'react';
-import { Suspense } from "react";
 import { useRouter } from 'next/router'; // Import the useRouter hook
 
 // Custom components/renderers to pass to MDX.
