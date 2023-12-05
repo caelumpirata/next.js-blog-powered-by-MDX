@@ -1,0 +1,144 @@
+---
+title: "Docker HTTPS setup"
+description: "Secure your Docker app with HTTPS! Obtain an SSL certificate using Certbot, and set up Nginx as a reverse proxy for added protection."
+og:
+date: '2023-08-05'
+---
+🚀 Secure your Docker app with HTTPS! Obtain an SSL certificate using Certbot, and set up Nginx as a reverse proxy for added protection. 🛡️🔒  🐳
+
+## Prerequisites:
+✅ Ensure your domain points to the external IP address of this instance.
+
+## Step 1: Get a 📜 SSL/TLS Certificate
+You need a certificate to enable 🔒 HTTPS for your Docker application. You can either get one from a trusted CA like 🌐 Let's Encrypt or generate a self-signed certificate for testing purposes.
+
+## Step 2: Install Certbot (optional)
+If you choose Let's Encrypt, you can install Certbot to make certificate issuance and renewal easier.
+
+## Step 3: Obtain the Certificate
+Run the Certbot command to obtain the 📜 SSL certificate for your domain (replace "your_domain.com" with your actual domain):
+```
+sudo certbot certonly --standalone -d your_domain.com -d www.your_domain.com
+```
+## Step 4: Configure Docker and Web Server
+You can either set up your Docker application directly to use the certificate or use a reverse proxy like 🚀 Nginx to handle HTTPS connections and forward them to your app.
+
+### 1. Directly Use the Certificate in Docker
+If your Docker app supports SSL/TLS directly, copy the 📜 SSL certificate and private key files to the appropriate location within your Docker container. Then configure your app to use them.
+
+### 2. Set Up Nginx Reverse Proxy
+Install Nginx:
+```
+sudo apt install nginx
+```
+Create an Nginx configuration file for your app in /etc/nginx/sites-available/ (e.g., your_app.conf) with the following content (replace "your_domain.com" and the proxy_pass URL):
+```
+server {
+   listen 80;
+   server_name your_domain.com;
+
+   location /.well-known/acme-challenge/ {
+       root /var/www/html;
+   }
+
+   location / {
+       return 301 https://$host$request_uri;
+   }
+}
+
+server {
+   listen 443 ssl;
+   server_name your_domain.com;
+
+   ssl_certificate /etc/letsencrypt/live/your_domain.com/fullchain.pem;
+   ssl_certificate_key /etc/letsencrypt/live/your_domain.com/privkey.pem;
+
+   location / {
+       proxy_pass http://localhost:8080;
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto $scheme;
+   }
+}
+```
+Create a symbolic link to enable the configuration:
+```
+sudo ln -s /etc/nginx/sites-available/your_app.conf /etc/nginx/sites-enabled/
+```
+Test the Nginx configuration:
+```
+sudo nginx -t
+```
+If successful, restart Nginx:
+```
+sudo systemctl restart nginx
+```
+## Step 5: Firewall Configuration
+Ensure that your firewall allows incoming HTTPS traffic on port 443:
+```
+sudo ufw allow 443
+```
+## Step 6: Renewing the Certificate (if using Let's Encrypt)
+Let's Encrypt certificates are valid for 90 days. To automatically renew the certificate, set up a cron job:
+```
+sudo crontab -e
+```
+Add the following line to run the renewal process every week:
+```
+0 0 * * 0 /usr/bin/certbot renew --quiet
+```
+## 🚀 Adding Second Application to Nginx with HTTPS | Certbot & Reverse Proxy 📜
+1. Stop Nginx: `sudo systemctl stop nginx`
+2. Obtain SSL certificate: `sudo certbot certonly --standalone -d app2.example.com`
+3. Start Nginx: `sudo systemctl start nginx`
+4. Update Nginx config (`app_name.conf`):
+
+## 🚀 Here's how the final code will look
+```
+server {
+   listen 80;
+   server_name your_domain.com app2your_domain.com;
+
+   location /.well-known/acme-challenge/ {
+       root /var/www/html;
+   }
+
+   location / {
+       return 301 https://$host$request_uri;
+   }
+}
+
+server {
+   listen 443 ssl;
+   server_name your_domain.com;
+
+   ssl_certificate /etc/letsencrypt/live/your_domain.com/fullchain.pem;
+   ssl_certificate_key /etc/letsencrypt/live/your_domain.com/privkey.pem;
+
+   location / {
+       proxy_pass http://localhost:8080;
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto $scheme;
+   }
+}
+
+server {
+   listen 443 ssl;
+   server_name app2.your_domain.com;
+
+   ssl_certificate /etc/letsencrypt/live/app2.your_domain.com/fullchain.pem;
+   ssl_certificate_key /etc/letsencrypt/live/app2.your_domain.com/privkey.pem;
+
+   location / {
+       proxy_pass http://localhost:1880;
+       proxy_set_header Host $host;
+       proxy_set_header X-Real-IP $remote_addr;
+       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       proxy_set_header X-Forwarded-Proto $scheme;
+   }
+}
+```
+That's it! Your Docker application should now be accessible over HTTPS. Remember to replace "your_domain.com" and adapt the configurations to your specific setup. Happy secure browsing! 🚀🔒
