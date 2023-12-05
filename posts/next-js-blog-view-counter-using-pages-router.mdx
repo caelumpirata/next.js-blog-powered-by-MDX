@@ -1,0 +1,94 @@
+---
+title: "Next.js Blog View Counter: Using Pages Router"
+description: "This guide provides a simple, step-by-step approach to implement real-time page view tracking, enhancing user interaction and insights."
+og:
+date: '2023-11-15'
+---
+
+## Prerequisites
+
+1. create an account on <Link href="https://console.upstash.com/login">UpStash</Link>
+2. create database (you can create one database in free tier)
+3. go to your database (choose @upstash/redis tab), we will need them after.
+
+> I'm using Next.js 13 with Pages Router.
+
+## Project Setup
+```
+npm i @upstash/redis
+```
+
+### create a .env.local file in you root directory
+here add your url and token you copied before
+```
+UPSTASH_REDIS_REST_URL='https://bettol-thebot-12345.upstash.io'
+UPSTASH_REDIS_REST_TOKEN='kjdshfkshkfhkhekhkshdkfnkehsehuhweuhuHSUKhkheohouishfhskdhfiufhedsfkhkheusef='
+```
+
+### Create redis.js file in pages/api/ directory
+```
+const { Redis } = require("@upstash/redis");
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+export default async function handler(req, res) {
+    const { id } = req.query; // Assuming the identifier is passed as a query parameter
+    const loc = id || "default"; // Using "default" if no identifier is provided
+    const count = await redis.incr(loc);
+    res.status(200).send(`${count}`);
+  }
+  
+  export const config = {
+    api: {
+      bodyParser: false,
+    },
+  };
+```
+you can visit <Link href="http://localhost:3000/api/redis">http://localhost:3000/api/redis</Link> to check if its working.
+
+everytime you refresh, the counter values will increase.
+
+### Create [slug].js to pass the dynamic url
+```
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
+function Post() {
+  const router = useRouter();
+  const { slug } = router.query; // Access the slug from router.query
+
+  const [viewCount, setViewCount] = useState(null);
+
+  useEffect(() => {
+    if (slug) {
+      fetch(`/api/redis?id=${slug}`) // Pass the slug as an identifier to the API
+        .then((res) => res.text())
+        .then((data) => {
+          setViewCount(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    }
+  }, [slug]);
+
+  return (
+    <div>
+      <h1>Post: {slug}</h1>
+      <p>View Count: {viewCount}</p>
+    </div>
+  );
+}
+
+export default Post;
+```
+
+Visit <Link href="http://localhost:3000/cat">http://localhost:3000/cat</Link> and you will see the counter starts form 1 and the counter values persists in the database of UpStash.
+
+Go to database of upstash > Data Browser, and you will see the details of all the slugs on which the view counter is applied and for each slug saperate count is done.
+
+Similarly, visit <Link href="http://localhost:3000/dog">http://localhost:3000/dog</Link>, and  the count values will be stored for this one too.
+

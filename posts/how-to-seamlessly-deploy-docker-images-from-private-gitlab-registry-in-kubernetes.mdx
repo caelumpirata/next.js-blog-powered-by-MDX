@@ -1,0 +1,58 @@
+---
+title: "How to Seamlessly Deploy Docker Images from Private GitLab Registry in Kubernetes"
+description: "Learn steps to seamlessly pull Docker images from your private GitLab repository into Kubernetes, ensuring secure and streamlined deployment."
+og:
+date: '2023-11-20'
+---
+
+Learn efficient steps to seamlessly pull Docker images from your private GitLab repository into Kubernetes, ensuring secure and streamlined deployment. Master the process effortlessly with this comprehensive guide.
+
+## Get Token
+Follow <Link href="https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#create-a-personal-access-token">GitLab's guide</Link> to create a personal access token. Save it securely.
+
+## Run Command
+Execute the following command after replacing placeholders:
+
+```
+kubectl create secret docker-registry registry-credentials --docker-server=registry.gitlab.com --docker-username=<your_actual_gitlab_username> --docker-password=<token> -n <namespace> --dry-run=client -o yaml > registry-credentials.yml
+```
+Deploy this `registry-credentials.yml` in the same namespace as your application:
+
+## Deployment YAML Changes
+Modify your `DEPLOYMENT.YAML` file by adding `imagePullSecrets:`
+
+```
+spec:
+  imagePullSecrets:
+    - name: registry-credentials
+  containers:
+    - name: my-app
+      image: registry.gitlab.com/my-app/demo
+      imagePullPolicy: Always
+      ports:
+        - containerPort: 8080
+```
+Make sure to replace placeholders accordingly."
+
+## Pipeline Configuration
+Ensure your pipeline code `(.gitlab-ci.yml)` resembles the following (if used any):
+
+here, i am using helm chart install as an example
+
+```
+deploy to staging:
+  stage: deploy staging
+  environment: staging
+  image: docker:20.10.16
+  services:
+    - docker:20.10.8-dind
+  before_script:  
+    - chmod 400 $SSH_KEY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - |
+      ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@[your_instance_ip_address] "
+        docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+        helm install your_chart_name -n staging
+      "
+```
