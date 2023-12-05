@@ -80,6 +80,21 @@ export default function Home() {
             </p>
 
           </div>
+
+          <section className="mt-20 sm:mt-24">
+        <h3 className="mb-3 dark:text-gray-400 text-gray-500 tracking-wide uppercase">Technical Contributors</h3>
+              <Link className="block mt-8 p-4 bg-gray-100 dark:bg-gray-900 rounded-md sm:p-8" href="https://waytocognition.info/">
+                {/* <div className="flex-col"> */}
+                    <h3 className="dark:text-white font-bold">@waytocognition</h3>   
+                {/* </div> */}
+              </Link>
+
+              <Link className="block mt-8 p-4 bg-gray-100 dark:bg-gray-900 rounded-md sm:p-8" href="https://github.com/knight0917">
+                <div className="flex-col">
+                    <h3 className="dark:text-white font-bold">@knight0917</h3>   
+                </div>
+              </Link>
+        </section>
         </div>
       </main>
     </>
