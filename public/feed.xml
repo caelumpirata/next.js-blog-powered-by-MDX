@@ -4,42 +4,42 @@
         <description><![CDATA[Your Name]]></description>
         <link>https://demo.caelumpirata.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 04 Dec 2023 09:16:56 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 06 Dec 2023 12:07:05 GMT</lastBuildDate>
         <atom:link href="https://demo.caelumpirata.com/feed.xml" rel="self" type="application/rss+xml"/>
         <item>
-            <title><![CDATA[7 Principles of Rich Web Applications]]></title>
-            <description><![CDATA[dfjksdjs]]></description>
-            <link>/posts/good</link>
-            <guid isPermaLink="true">/posts/good</guid>
-            <pubDate>Wed, 23 Nov 2022 00:00:00 GMT</pubDate>
+            <title><![CDATA[How to Seamlessly Deploy Docker Images from Private GitLab Registry in Kubernetes]]></title>
+            <description><![CDATA[Learn steps to seamlessly pull Docker images from your private GitLab repository into Kubernetes, ensuring secure and streamlined deployment.]]></description>
+            <link>/posts/how-to-seamlessly-deploy-docker-images-from-private-gitlab-registry-in-kubernetes</link>
+            <guid isPermaLink="true">/posts/how-to-seamlessly-deploy-docker-images-from-private-gitlab-registry-in-kubernetes</guid>
+            <pubDate>Mon, 20 Nov 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Mod Apps]]></title>
-            <description><![CDATA[dfjksdjs]]></description>
-            <link>/posts/mod-apps</link>
-            <guid isPermaLink="true">/posts/mod-apps</guid>
-            <pubDate>Wed, 23 Nov 2022 00:00:00 GMT</pubDate>
+            <title><![CDATA[Next.js Blog View Counter: Using Pages Router]]></title>
+            <description><![CDATA[This guide provides a simple, step-by-step approach to implement real-time page view tracking, enhancing user interaction and insights.]]></description>
+            <link>/posts/next-js-blog-view-counter-using-pages-router</link>
+            <guid isPermaLink="true">/posts/next-js-blog-view-counter-using-pages-router</guid>
+            <pubDate>Wed, 15 Nov 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Hello World]]></title>
-            <description><![CDATA[dfjksdjs]]></description>
-            <link>/posts/hello-world</link>
-            <guid isPermaLink="true">/posts/hello-world</guid>
-            <pubDate>Thu, 20 Nov 2014 00:00:00 GMT</pubDate>
+            <title><![CDATA[Docker HTTPS setup]]></title>
+            <description><![CDATA[Secure your Docker app with HTTPS! Obtain an SSL certificate using Certbot, and set up Nginx as a reverse proxy for added protection.]]></description>
+            <link>/posts/docker-https-setup</link>
+            <guid isPermaLink="true">/posts/docker-https-setup</guid>
+            <pubDate>Sat, 05 Aug 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Meow]]></title>
-            <description><![CDATA[dfjksdjs]]></description>
-            <link>/posts/meow</link>
-            <guid isPermaLink="true">/posts/meow</guid>
-            <pubDate>Tue, 20 Nov 2001 00:00:00 GMT</pubDate>
+            <title><![CDATA[4K Resolution Guide to different Aspect ratio to choose from]]></title>
+            <description><![CDATA[Elevate Your Viewing Experience with 4K Resolution! . Our Guide Explores Aspect Ratios: 16:9 & 21:9 to help You enhance Your Visuals Today! ]]></description>
+            <link>/posts/4k-resolution-a-guide-to-different-aspect-ratio-to-choose-from</link>
+            <guid isPermaLink="true">/posts/4k-resolution-a-guide-to-different-aspect-ratio-to-choose-from</guid>
+            <pubDate>Tue, 04 Jul 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Example Post]]></title>
-            <description><![CDATA[dfjksdjs]]></description>
-            <link>/posts/example-post</link>
-            <guid isPermaLink="true">/posts/example-post</guid>
-            <pubDate>Sat, 20 Nov 1999 00:00:00 GMT</pubDate>
+            <title><![CDATA[Spotify: No Ads]]></title>
+            <description><![CDATA[Ads free Spotify app, Download now.]]></description>
+            <link>/posts/no-ads-spotify</link>
+            <guid isPermaLink="true">/posts/no-ads-spotify</guid>
+            <pubDate>Thu, 01 Dec 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>
