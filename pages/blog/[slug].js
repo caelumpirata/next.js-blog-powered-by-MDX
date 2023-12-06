@@ -6,6 +6,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import path from "path";
+import Footer from "@/components/footer";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import Toggle from "@/components/Toggle";
 import Date from "@/components/date";
@@ -199,6 +200,7 @@ export default function PostPage({ source, frontMatter }) {
           </div>
         </article>
       </main>
+      <Footer />
     </div>
   );
 }

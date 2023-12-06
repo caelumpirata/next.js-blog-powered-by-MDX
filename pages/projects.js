@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Head from "next/head";
 import Toggle from "@/components/Toggle";
+import Footer from "@/components/footer";
 
 export default function Home({ posts }) {
   return (
     <>
+    <div className="flex flex-col min-h-screen">
       <Head>
         <title>Projects | Caelum Pirata</title>
         <meta
@@ -106,6 +108,8 @@ export default function Home({ posts }) {
           </div>
         </div>
       </main>
+      <Footer />
+      </div>
     </>
   );
 }

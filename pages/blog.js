@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Head from "next/head";
 import Toggle from "@/components/Toggle";
+import Footer from "@/components/footer";
 import Date from "@/components/date";
 import fs from "fs";
 import matter from "gray-matter";
@@ -25,6 +26,7 @@ export function getStaticProps() {
 export default function Home({ posts }) {
   return (
     <>
+    <div className="flex flex-col min-h-screen">
       <Head>
         <title>Blog | Caelum Pirata</title>
         <meta
@@ -114,6 +116,8 @@ export default function Home({ posts }) {
           </div>
         </div>
       </main>
+      <Footer />
+      </div>
     </>
   );
 }
