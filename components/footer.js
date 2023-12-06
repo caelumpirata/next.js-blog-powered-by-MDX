@@ -30,7 +30,7 @@ const Footer = () => {
               CC BY-NC-SA
               </Link>
             
-             licensed. Visits <span className='dark:text-white dark:bg-gray-800 text-gray-700  bg-black bg-opacity-5  inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium  tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none'>{viewCount}</span></p>
+             licensed. Visits <span className='dark:text-white dark:bg-gray-800 text-gray-700 px-2 bg-black bg-opacity-5  inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium  tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none'>{viewCount}</span></p>
          
           </div>
 
