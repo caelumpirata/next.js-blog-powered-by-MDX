@@ -24,13 +24,13 @@ const Footer = () => {
   return (
     <footer className="mt-16 sm:mt-18 border-t border-gray-300 dark:border-gray-700 ">
       <div className="mx-auto max-w-2xl px-4 md:px-0 ">
-        <div className="flex items-end justify-between py-8  sm:py-8">
+        <div className="flex items-end justify-between py-8 items-center sm:py-8">
           <div className="mr-16 xs:mr-32">
             <p className="inline-block py-2 text-gray-500 text-xs tracking-wider  sm:text-sm">Original articles on this site are <Link className="inline-block text-gray-500 text-xs  underline uppercase sm:text-sm" href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode">
               CC BY-NC-SA
               </Link>
             
-             licensed. <p className='dark:text-white dark:bg-gray-800 text-gray-700  bg-black bg-opacity-5  inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs px-2  font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none'>{viewCount}</p> visits till date.</p>
+             licensed. <span className='dark:text-white dark:bg-gray-800 text-gray-700  bg-black bg-opacity-5  inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none'>{viewCount}</span> visits till date.</p>
          
           </div>
 
