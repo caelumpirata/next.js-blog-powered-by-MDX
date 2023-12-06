@@ -62,10 +62,10 @@ export default function Home() {
           <header className="flex flex-col-reverse justify-between sm:flex-row sm:items-center">
             <div className="sm:max-w-md">
               <h1 className="font-regular mt-4 text-black dark:text-white text-4xl tracking-tight sm:mt-0">
-                Hey! <span>👋</span> I&apos;m <b>Caelum</b>
+                Hey! <span>👋</span> This&apos;s <b>Caelum</b>
               </h1>
               <p className="prose dark:prose-dark md:prose-lg mt-8 sm:mt-4">
-                Welcome to my Online home. I write software, mostly for the open
+                Welcome to his Online home. He writes software, mostly for the open
                 Web.
               </p>
             </div>
@@ -74,9 +74,9 @@ export default function Home() {
 
           <div className="prose dark:prose-dark sm:prose-lg sm:mt-8">
             <p >
-              This website is a place for me to publish ideas and lessons I learn while pursuing the things that
-              peak my curiosity. <Link href="/blog">My writing</Link> spans
-              topics like software, designs and video editing.
+              This website is a place for him to publish ideas and lessons he learns while pursuing the things that
+              peaks his curiosity. <Link href="/blog">His writings</Link> spans
+              topics like software and designs.
             </p>
 
           </div>
