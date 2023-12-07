@@ -6,7 +6,6 @@ import Footer from "@/components/footer";
 export default function Home({ posts }) {
   return (
     <>
-    <div className="flex flex-col min-h-screen">
       <Head>
         <title>Projects | Caelum Pirata</title>
         <meta
@@ -60,7 +59,7 @@ export default function Home({ posts }) {
         </nav>
       </header>
 
-      <main className="flex-grow">
+      <article className="flex-grow">
         <div className="mx-auto max-w-2xl px-4 md:px-0 pt-16 sm:pt-24">
           <h1 className="text-black dark:text-white text-3xl font-extrabold tracking-tight sm:text-4xl">
             Projects
@@ -107,9 +106,8 @@ export default function Home({ posts }) {
             </Link>
           </div>
         </div>
-      </main>
+      </article>
       <Footer />
-      </div>
     </>
   );
 }

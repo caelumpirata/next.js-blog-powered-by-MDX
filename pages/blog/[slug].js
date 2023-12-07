@@ -91,7 +91,8 @@ export default function PostPage({ source, frontMatter }) {
 
   return (
     // <Layout>
-    <div className="flex flex-col min-h-screen">
+    <>
+    {/* <div className="flex flex-col min-h-screen"> */}
       <Head>
         <title>{frontMatter.title}</title>
         <meta name="description" content={frontMatter.description} key="desc" />
@@ -149,8 +150,8 @@ export default function PostPage({ source, frontMatter }) {
               <p className="description">{frontMatter.description}</p>
             )} */}
 
-      <main className="flex-grow">
-        <article className="pt-16 sm:pt-24">
+      {/* <main className="flex-grow"> */}
+        <article className="pt-16 sm:pt-24 flex-grow">
           <header>
             <div className="mx-auto max-w-2xl px-4 md:px-0">
               <div>
@@ -199,8 +200,9 @@ export default function PostPage({ source, frontMatter }) {
             </div>
           </div>
         </article>
-      </main>
+      {/* </main> */}
       <Footer />
-    </div>
+    {/* </div> */}
+    </>
   );
 }
