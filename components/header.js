@@ -1,7 +1,16 @@
 import Link from "next/link";
 import Toggle from "./Toggle";
+import { useRouter } from "next/router";
 
 export default function Header({ children }) {
+  const router = useRouter();
+
+  const isActive = (route) => {
+    return route === router.pathname
+      ? "dark:text-white dark:bg-gray-800 text-gray-700  bg-black bg-opacity-5 w-full px-6 py-2 inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none"
+      : "dark:text-gray-400 bg-transparent text-gray-500 w-full px-6 py-2 inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none";
+  };
+
   return (
     <header className="bg-gray-100/60 border-b border-gray-200 sticky-header dark:bg-gray-800/60 dark:border-gray-800">
       <nav className="mx-auto max-w-4xl md:px-2 md:py-2">
@@ -13,17 +22,14 @@ export default function Header({ children }) {
         </div>
         <ul className="hidden justify-between w-full md:flex">
           <li className="mx-1 w-1/4">
-            <Link
-              className="dark:text-gray-400 bg-transparent text-gray-500 w-full px-6 py-2 inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none"
-              href="/"
-            >
+            <Link className={isActive("/")} href="/">
               Home
             </Link>
           </li>
           {/* <li className="mx-1 w-1/4"><Link className="dark:text-gray-400 bg-transparent text-gray-500 w-full px-6 py-2 inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none" href="/about">About</Link></li> */}
           <li className="mx-1 w-1/4">
             <Link
-              className="dark:text-gray-400 bg-transparent text-gray-500 w-full px-6 py-2 inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none"
+              className={isActive('/blog')}
               href="/blog"
             >
               Blog
@@ -31,7 +37,7 @@ export default function Header({ children }) {
           </li>
           <li className="mx-1 w-1/4">
             <Link
-              className="dark:text-white dark:bg-gray-800 text-gray-700  bg-black bg-opacity-5 w-full px-6 py-2 inline-block text-center dark:hover:text-white hover:text-gray-700 hover:bg-black hover:bg-opacity-5 text-xs font-medium tracking-widest dark:hover:bg-gray-800 rounded cursor-pointer uppercase select-none"
+              className={isActive('/projects')}
               href="/projects"
             >
               Projects
