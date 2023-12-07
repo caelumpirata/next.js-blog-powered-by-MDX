@@ -1,0 +1,86 @@
+---
+title: "How to Remove Bloatware from Android Device"
+description: "Follow these steps to remove the unwanted apps from you Android Device easily."
+date: "2023-07-14"
+---
+
+Follow these steps to remove the unwanted apps from you Android Device easily.
+
+## Things you will need
+1. Computer
+2. Usb Cable
+3. <Link href="https://developer.android.com/tools/releases/platform-tools">SDK Platform Tools</Link>
+
+## 1. Connect your Android Device with ADB
+Open Settings in your Android Device.
+Navigate to About Phone.
+Tap Build Number 7-8 times.
+> Doing this will enable Developers option.
+
+Go to Developers Options.
+Inside `DEBUGGING` section, Enable Android Debugging.
+
+Now,
+Extract the `.zip` file you downloaded and navigate to `platform-tools` and open `cmd` in that directory.
+
+    <Image
+      src="/cmd.webp"
+      alt="how to open cmd in current directory"
+      width={500}
+      height={500}
+      priority={true}
+    />
+
+run the following command
+```
+adb devices
+```
+
+Accept the Allow USB Debugging popup in you android device.
+
+Next,
+```
+adb shell
+```
+
+this command will list the packages installed inside your device
+```
+pm list packages
+```
+
+2. Uninstalling the Apps
+To uninstall the apps, we  will need the exact package name of the app.
+`App info` shows the package name
+    <Image
+      src="/app_info.webp"
+      alt="find package name in app info"
+      width={500}
+      height={500}
+      priority={true}
+    />
+or, 
+you can download this to get the package name
+
+<Link href="https://play.google.com/store/apps/details?id=com.ubqsoft.sec01&hl=en_US">App Inspector - Apps on Google Play</Link>
+
+run this command to delete the app
+```
+pm uninstall -k --user 0 NameOfPackage
+```
+
+in my case it is  `org.lineage0s.audiofx`
+    <Image
+      src="/uninstall.webp"
+      alt="uninstalled package"
+      width={500}
+      height={500}
+      priority={true}
+    />
+
+
+Thank you 😋
+
+
+
+
+
