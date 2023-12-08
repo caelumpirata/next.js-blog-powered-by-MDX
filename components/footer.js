@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import useSWR from 'swr';
 import { useEffect, useState } from 'react';
 
 
@@ -6,20 +7,13 @@ const Footer = () => {
   // total website count
   const  slug = "totalcount"
 
-  const [viewCount, setViewCount] = useState(null);
+  const fetcher = (url) => fetch(url).then((res) => res.text()); // Custom fetcher function
 
-  useEffect(() => {
-    if (slug) {
-      fetch(`/api/redis?id=${slug}`) // Pass the slug as an identifier to the API
-        .then((res) => res.text())
-        .then((data) => {
-          setViewCount(data);
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        });
-    }
-  }, [slug]);
+  const { data: viewCount, error } = useSWR(`/api/redis?id=${slug}`, fetcher);
+
+  if (error) {
+    console.error('Error fetching data:', error);
+  }
 
   return (
     <footer className="mt-16 sm:mt-18 border-t border-gray-300 dark:border-gray-700 ">

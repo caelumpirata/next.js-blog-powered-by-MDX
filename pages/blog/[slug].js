@@ -10,6 +10,7 @@ import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import Date from "@/components/date";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router"; // Import the useRouter hook
+import useSWR from "swr";
 
 // Custom components/renderers to pass to MDX.
 // Since the MDX files aren't loaded by webpack, they have no knowledge of how
@@ -63,24 +64,22 @@ export const getStaticPaths = async () => {
 };
 
 export default function PostPage({ source, frontMatter }) {
-  // code for showing viewCount
-  const router = useRouter();
-  const { slug } = router.query;
 
-  const [viewCount, setViewCount] = useState(null);
+    // Fetch view count using SWR
+    const { query } = useRouter();
+    const { slug } = query;
 
-  useEffect(() => {
-    if (slug) {
-      fetch(`/api/redis?id=/blog/${slug}`) // Pass the slug as an identifier to the API
-        .then((res) => res.text())
-        .then((data) => {
-          setViewCount(data);
-        })
-        .catch((error) => {
-          console.error("Error fetching data:", error);
-        });
+    const fetcher = (url) => fetch(url).then((res) => res.text());
+
+
+    const { data: viewCount, error } = useSWR(
+      slug ? `/api/redis?id=/blog/${slug}` : null, // Pass the slug as an identifier to the API
+      fetcher
+    );
+  
+    if (error) {
+      console.error("Error fetching data:", error);
     }
-  }, [slug]);
 
   return (
     <>
