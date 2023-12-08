@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Head from "next/head";
-import useSWR from "swr";
+import swr from "swr";
 import Date from "@/components/date";
 import fs from "fs";
 import matter from "gray-matter";
@@ -49,7 +49,7 @@ export default function Home({ posts }) {
               const slug = post.filePath.replace(/\.mdx?$/, "");
 
               const fetcher = (url) => fetch(url).then((res) => res.text());
-              const { data: viewCount, error } = useSWR(
+              const { data: viewCount, error } = swr(
                 `/api/redisGet?id=/blog/${slug}`,
                 fetcher
               );

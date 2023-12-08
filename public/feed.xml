@@ -4,7 +4,7 @@
         <description><![CDATA[Your Name]]></description>
         <link>https://demo.caelumpirata.com</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 06 Dec 2023 12:07:05 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 08 Dec 2023 09:58:13 GMT</lastBuildDate>
         <atom:link href="https://demo.caelumpirata.com/feed.xml" rel="self" type="application/rss+xml"/>
         <item>
             <title><![CDATA[How to Seamlessly Deploy Docker Images from Private GitLab Registry in Kubernetes]]></title>
@@ -28,11 +28,32 @@
             <pubDate>Sat, 05 Aug 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
+            <title><![CDATA[How to Remove Bloatware from Android Device]]></title>
+            <description><![CDATA[Follow these steps to remove the unwanted apps from you Android Device easily.]]></description>
+            <link>/posts/how-to-remove-unwanted-apps-from-android-device</link>
+            <guid isPermaLink="true">/posts/how-to-remove-unwanted-apps-from-android-device</guid>
+            <pubDate>Fri, 14 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
             <title><![CDATA[4K Resolution Guide to different Aspect ratio to choose from]]></title>
             <description><![CDATA[Elevate Your Viewing Experience with 4K Resolution! . Our Guide Explores Aspect Ratios: 16:9 & 21:9 to help You enhance Your Visuals Today! ]]></description>
             <link>/posts/4k-resolution-a-guide-to-different-aspect-ratio-to-choose-from</link>
             <guid isPermaLink="true">/posts/4k-resolution-a-guide-to-different-aspect-ratio-to-choose-from</guid>
             <pubDate>Tue, 04 Jul 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Best Antivirus - SmadAV]]></title>
+            <description><![CDATA[Best Antivirus you can use.]]></description>
+            <link>/posts/best-antivirus-smadav</link>
+            <guid isPermaLink="true">/posts/best-antivirus-smadav</guid>
+            <pubDate>Wed, 15 Feb 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Best Premiere Pro export Settings for your Potato Computer]]></title>
+            <description><![CDATA[You can get Best results with these premiere pro export settings listed below.]]></description>
+            <link>/posts/best-premiere-pro-export-settings-for-your-potato-computer</link>
+            <guid isPermaLink="true">/posts/best-premiere-pro-export-settings-for-your-potato-computer</guid>
+            <pubDate>Fri, 27 Jan 2023 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title><![CDATA[Spotify: No Ads]]></title>
