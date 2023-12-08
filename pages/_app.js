@@ -14,7 +14,7 @@ export default function MyApp({ Component, pageProps }) {
             rel="icon"
             type="image/webp"
             sizes="128x128"
-            href="/trees.svg"
+            href="/favicon.png"
           />
         </Head>
         <Component {...pageProps} />
