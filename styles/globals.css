@@ -1294,13 +1294,13 @@ body,html {
 
 @media screen and (min-width: 500px) {
   html {
-      font-size:115%olor-adjust
+      font-size:115%;
   }
 }
 
 @media screen and (min-width: 1000px) {
   html {
-      font-size:125%
+      font-size:125%;
   }
 }
 
