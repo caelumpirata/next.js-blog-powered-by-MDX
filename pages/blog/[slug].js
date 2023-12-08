@@ -8,7 +8,6 @@ import Link from "next/link";
 import path from "path";
 import { postFilePaths, POSTS_PATH } from "../../utils/mdxUtils";
 import Date from "@/components/date";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router"; // Import the useRouter hook
 import useSWR from "swr";
 

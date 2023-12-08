@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import useSWR from 'swr';
-import { useEffect, useState } from 'react';
 
 
 const Footer = () => {
