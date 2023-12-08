@@ -38,7 +38,7 @@ export default function Home() {
             <p>
               This website is a place for him to publish ideas and lessons he
               learns while pursuing the things that peaks his curiosity.{" "}
-              <Link href="/blog">His writings</Link> spans topics like software
+              <Link href="/blog">His writing</Link> spans topics like software
               and designs.
             </p>
           </div>
