@@ -66,9 +66,13 @@ export default function Home({ posts }) {
                   href="/blog/[slug]"
                 >
                   <div className="flex-col">
+                  <div className="flex items-center justify-between">
+
                     <time className="pb-2 dark:text-gray-400 text-gray-500 whitespace-nowrap text-sm">
                       <Date dateString={post.data.date} />
                     </time>
+                    <p className="text-gray-500 dark:text-gray-500 text-xs">{viewCount} views</p>
+                    </div>
                     <h3 className="dark:text-white text-xl font-bold">
                       {post.data.title}
                     </h3>
@@ -76,7 +80,7 @@ export default function Home({ posts }) {
                   <p className="mt-3 dark:text-gray-300 text-gray-600">
                     {post.data.description}
                   </p>
-                  {viewCount && <p>{viewCount}</p>}
+                  {/* {viewCount && <p>{viewCount}</p>} */}
                 </Link>
               );
             })}
