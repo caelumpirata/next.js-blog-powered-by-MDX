@@ -2,6 +2,8 @@ import "../styles/globals.css";
 import { ThemeProvider } from "next-themes";
 import Layout from "@/components/layout";
 import Head from "next/head";
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 
 export default function MyApp({ Component, pageProps }) {
   return (
@@ -16,6 +18,7 @@ export default function MyApp({ Component, pageProps }) {
           />
         </Head>
         <Component {...pageProps} />
+        <SpeedInsights />
       </Layout>
     </ThemeProvider>
   );
