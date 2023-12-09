@@ -71,7 +71,7 @@ export default function Home({ posts }) {
                     <time className="pb-2 dark:text-gray-400 text-gray-500 whitespace-nowrap text-sm">
                       <Date dateString={post.data.date} />
                     </time>
-                    <p className="text-gray-500 dark:text-gray-500 text-xs">{viewCount} views</p>
+                    <p className="dark:text-gray-400 text-gray-500 xs:text-sm text-xs">{viewCount} views</p>
                     </div>
                     <h3 className="dark:text-white text-xl font-bold">
                       {post.data.title}

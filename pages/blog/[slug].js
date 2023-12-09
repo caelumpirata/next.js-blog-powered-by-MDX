@@ -125,7 +125,7 @@ export default function PostPage({ source, frontMatter }) {
               {/* <p className="dark:text-gray-400 text-gray-500 hover:text-indigo-500 text-xs tracking-wide ">
                     <Suspense fallback={<p>Loading view count...</p>}>{viewCount} 
                     </Suspense> views</p> */}
-              <p className="text-gray-500 dark:text-gray-500 text-xs">
+              <p className="dark:text-gray-400 text-gray-500 xs:text-sm text-xs">
                 {viewCount} views
               </p>
             </div>
