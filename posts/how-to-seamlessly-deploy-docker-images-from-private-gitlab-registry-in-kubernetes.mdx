@@ -21,7 +21,7 @@ Deploy this `registry-credentials.yml` in the same namespace as your application
 ## Deployment YAML Changes
 Modify your `DEPLOYMENT.YAML` file by adding `imagePullSecrets:`
 
-```
+```yaml
 spec:
   imagePullSecrets:
     - name: registry-credentials
@@ -39,7 +39,7 @@ Ensure your pipeline code `(.gitlab-ci.yml)` resembles the following (if used an
 
 here, i am using helm chart install as an example
 
-```
+```yml
 deploy to staging:
   stage: deploy staging
   environment: staging

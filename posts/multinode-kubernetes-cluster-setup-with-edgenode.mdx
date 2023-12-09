@@ -1,0 +1,384 @@
+---
+title: "Multinode Kubernetes Cluster Setup With EdgeNode - KubeSphere"
+description: "Use this guide to setup a Multinode Kubernetes Cluster with EdgeNode feature enabled."
+date: "2023-02-25"
+---
+
+Use this guide to setup a Multinode Kubernetes Cluster with EdgeNode feature enabled.
+
+## Prerequisites
+
+* **Ubuntu** : `20.04.6 LTS` (recommended)
+* **Kubernetes Version** : **`v1.21.14`**
+* **Node Configuration** : CPU: `4 Cores`, Memory: `4 GB`, Disk Space: `30 GB`
+* **Necessary Downloads** : Both in you Master and Worker node
+
+```bash
+sudo apt-get update
+sudo apt-get install conntrack
+sudo apt-get install socat
+sudo apt install ebtables
+sudo apt install ipset
+sudo apt install docker.io
+```
+
+Change TimeZone to Asia/Kolkata (run in all the nodes)
+
+```bash
+sudo timedatectl set-timezone Asia/Kolkata
+```
+
+add `id_rsa` pvt key inside .ssh/id_rsa
+assign READ only permission
+
+```bash
+chmod 400 ~/.ssh/id_rsa
+```
+
+add your `id_rsa` pub key inside authorized keys in all the nodes(master + worker nodes + EDGEnode)
+Apply in all the nodes(master  + worker + edgenode) for seamless, socks5 connection for ssh into your edgenode terminal.
+
+```bash
+sudo ufw default allow
+```
+
+Install a <Link href="https://kubesphere.io/docs/v3.3/installing-on-linux/introduction/multioverview/">Multi-node Kubernetes and KubeSphere Cluster</Link>
+
+You can use the web kubectl to check the installation process by executing the following command:
+
+```bash
+kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l 'app in (ks-install, ks-installer)' -o jsonpath='{.items[0].metadata.name}') -f
+```
+
+## Configure the cloud (KubeEdge Master node)
+<Link href="https://kubesphere.io/zh/blogs/kubesphere-kubeedge-edgemesh/#%E7%AE%80%E4%BB%8B">Use KubeEdge and EdgeMesh to implement node communication in complex edge network scenarios</Link>
+
+### Enable KubeEdge
+As you install KubeSphere on Kubernetes, you can enable KubeEdge in the cluster-configuration.yaml file.
+
+```bash
+nano config-sample.yaml
+```
+
+In this file, navigate to edgeruntime and kubeedge, and change the value of enabled from false to true to enable all KubeEdge components. Click OK.
+
+Set the value of  `advertiseAddress` to the public IP address of your Master Node.
+
+```yaml
+edgeruntime:          
+
+ enabled: true
+
+ kubeedge:        
+
+   enabled: true
+
+   cloudCore:
+
+     cloudHub:
+
+       advertiseAddress: 
+
+         - "<master_node_external_ip>"            
+
+     service:
+
+       cloudhubNodePort: "30000"
+
+       cloudhubQuicNodePort: "30001"
+
+       cloudhubHttpsNodePort: "30002"
+
+       cloudstreamNodePort: "30003"
+
+       tunnelNodePort: "30004"
+
+     # resources: {}
+
+     # hostNetWork: false
+```
+Create a cluster again using the configuration file:
+
+```bash
+./kk create cluster -f config-sample.yaml
+```
+
+### Configure Public Network Port Forwarding
+After the startup is complete, use the following command to see the NodePort port of CloudCore.
+
+```bash
+kubectl get svc -n kubeedge -l k8s-app=kubeedge
+```
+
+If there is a cloud provider, you need to create a load balancer to forward according to the rules in the above table. If there is no cloud provider, you can use the following command to configure `iptables` rules for port forwarding:
+
+```bash
+iptables -t nat -A PREROUTING -p tcp --dport 10000 -j REDIRECT --to-ports 30000
+
+iptables -t nat -A PREROUTING -p tcp --dport 10001 -j REDIRECT --to-ports 30001
+
+iptables -t nat -A PREROUTING -p tcp --dport 10002 -j REDIRECT --to-ports 30002
+
+iptables -t nat -A PREROUTING -p tcp --dport 10003 -j REDIRECT --to-ports 30003
+
+iptables -t nat -A PREROUTING -p tcp --dport 10004 -j REDIRECT --to-ports 30004
+```
+
+### Configure the iptables daemon
+After the deployment is complete, it is found that the DaemonSet resource iptables is not scheduled to the k8s-master node, and it needs to be configured to tolerate master stains.
+
+```bash
+kubectl get pod -o wide -n kubeedge
+```
+
+Find `Application Load` - `Workload` - `Daemon Process Set`, edit `cloud-iptables-manager` and add the following configuration:
+
+```yaml
+kind: DaemonSet
+
+apiVersion: apps/v1
+
+metadata:
+
+  name: cloud-iptables-manager
+
+  namespace: kubeedge
+
+spec:
+
+  template:
+
+    spec:
+
+      ......
+
+
+      tolerations:
+
+        - key: node-role.kubernetes.io/master
+
+          operator: Exists
+
+          effect: NoSchedule
+```
+After the configuration is complete, check again whether the iptables daemon has been dispatched to all nodes(master and worker each).
+```bash
+kubectl get pod -o wide -n kubeedge
+```
+
+
+
+## Configure the edge (KubeEdge Node)
+
+Add edge node documentation:
+
+<Link href="https://kubesphere.io/docs/v3.3/installing-on-linux/cluster-operation/add-edge-nodes/">Add Edge Nodes</Link>
+
+### Install a container runtime
+```bash
+sudo apt update
+sudo apt install docker.io
+```
+
+### Configure EdgeMesh
+Edit `/etc/nsswitch.conf`.
+
+```bash
+nano /etc/nsswitch.conf
+```
+
+Add the following content to this file:
+
+```bash
+hosts:          dns files mdns4_minimal [NOTFOUND=return]
+```
+
+Save the file and run the following command to enable IP forwarding:
+
+```bash
+sudo echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+```
+
+Verify your modification:
+
+```bash
+sudo sysctl -p | grep ip_forward
+```
+
+Expected result:
+```bash
+net.ipv4.ip_forward = 1
+```
+
+
+
+## Add an Edge Node
+
+* Log in to the console as `admin` and click `Platform` in the upper-left corner.
+
+* Select `Cluster Management` and navigate to `Edge Nodes` under `Nodes`.
+
+* Click `Add`. In the dialog that appears, set a node name and enter an internal IP address of your edge node. Click `Validate` to continue.
+
+* Copy the command automatically created under `Edge Node Configuration Command` and make some following changes
+
+> make sure to change `HIGHLIGHTED_PORT` to `30000`, `30001`, `30002`, `30004` and then run in your Edge_Node Droplet
+
+    <Image
+      src="/multinode-kubernetes-cluster-setup-with-edgenode/edgenode-join.webp"
+    
+      alt="edgenode join"
+      width={1280}
+      height={720}
+      priority={true}
+    />
+
+now, run the edited command in  your edge node.
+
+## Prevent non-edge workloads from being scheduled to edge nodes
+
+Due to the tolerations some daemonsets (for example, Calico) have, to ensure that the newly added edge nodes work properly, you need to run the following command to manually patch the pods so that non-edge workloads will not be scheduled to the edge nodes.
+
+* in master node, create a file `deploy.sh`
+* copy following code
+
+```bash
+#!/bin/bash
+   
+   
+NoShedulePatchJson='{"spec":{"template":{"spec":{"affinity":{"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"node-role.kubernetes.io/edge","operator":"DoesNotExist"}]}]}}}}}}}'
+   
+ns="kube-system"
+
+
+DaemonSets=("nodelocaldns" "kube-proxy" "calico-node")
+
+length=${#DaemonSets[@]}
+   
+for((i=0;i<length;i++));  
+do
+         ds=${DaemonSets[$i]}
+        echo "Patching resources:DaemonSet/${ds}" in ns:"$ns",
+        kubectl -n $ns patch DaemonSet/${ds} --type merge --patch "$NoShedulePatchJson"
+        sleep 1
+done
+```
+
+* run `chmod u+x deploy.sh` to make it executable.
+* run `./deploy.sh` and **boom**. Done
+
+> <Link href="https://www.andrewcbancroft.com/blog/musings/make-bash-script-executable/">Learn how to make bash script, enable execution and run it at the command line.</Link>
+
+
+
+## Collect Monitoring Information on Edge Nodes
+
+Make these changes to get the Metrics of the EdgeNode in your Kubesphere Dashboard.
+
+### Changes to make in MasterNode
+
+To collect monitoring information on edge node, you need to enable `metrics_server` in `ClusterConfiguration` and `edgeStream` in KubeEdge.
+
+1. On the KubeSphere web console, choose `Platform` > `Cluster Management`.
+
+2. On the navigation pane on the left, click `CRDs`.
+
+3. In the search bar on the right pane, enter `clusterconfiguration`, and click the result to go to its details page.
+
+4. Click on three dots on the right of ks-installer, and click `Edit YAML`.
+
+5. Search for `metrics_server`, and change the value of enabled from `false` to `true`.
+
+```bash
+  metrics_server:
+  enabled: true # Change "false" to "true".
+```
+
+### Changes to make in EDGE NODE
+Open the `/etc/kubeedge/config` file, search for `edgeStream`, change `false` to `true`, and save the change.
+
+```yaml
+nano /etc/kubeedge/config/edgecore.yaml
+edgeStream:
+  enable: true
+  handshakeTimeout: 30
+  readDeadline: 15
+  server: 1x.xx.xx.x8:30004
+  tlsTunnelCAFile: /etc/kubeedge/ca/rootCA.crt
+  tlsTunnelCertFile: /etc/kubeedge/certs/server.crt
+  tlsTunnelPrivateKeyFile: /etc/kubeedge/certs/server.key
+  writeDeadline: 15
+```
+
+Run the following command to restart `edgecore.service`.
+
+```bash
+systemctl restart edgecore.service
+```
+
+If you still cannot see the monitoring data, run the following command:
+
+```bash
+journalctl -u edgecore.service -b -r
+```
+
+### Fix: Metrics Data Still unavailable for EdgeNode
+
+1. On the KubeSphere web console, choose `Platform` > `Cluster Management`.
+
+2. On the navigation pane on the left, click `CRDs`.
+
+3. In the search bar on the right pane, enter `clusterconfiguration`, and click the result to go to its details page.
+
+4. Click on three dots on the right of ks-installer, and click `Edit YAML`.
+
+```yaml
+network:
+
+  ippool:
+
+    type: weave-scope # Change "none" to "weave-scope".
+```
+
+## Deploy Edge Mesh
+EdgeMesh is positioned as a lightweight communication component of the KubeEdge user data plane, completes the Mesh of the network between nodes, establishes a P2P channel between nodes on the edge complex network topology, and completes the management and forwarding of traffic in the edge cluster on this channel , and finally provide a service discovery and traffic forwarding experience consistent with K8s Service for container applications in the user's KubeEdge cluster.
+
+```bash
+helm install edgemesh --namespace kubeedge \
+--set agent.psk=qVkwAwxZ2AIb5VTY97pCPkF9LX8u9Jbz3mL0bPJrTBc= \
+--set agent.modules.edgeProxy.socks5Proxy.enable=true \
+--set agent.relayNodes[0].nodeName=master,agent.relayNodes[0].advertiseAddress="{YOUR_MASTER_NODE_EXTERNAL_IP}" \
+https://raw.githubusercontent.com/kubeedge/edgemesh/main/build/helm/edgemesh.tgz
+```
+
+After the deployment is complete, you need to set the node `tolerance` of `edgemesh-agent` so that it can be scheduled to the master and edge nodes.
+
+```yaml
+spec:
+
+  template:
+
+    spec:
+
+      tolerations:
+
+        - key: node-role.kubernetes.io/edge
+
+          operator: Exists
+
+          effect: NoSchedule
+
+        - key: node-role.kubernetes.io/master
+
+          operator: Exists
+
+          effect: NoSchedule
+```
+
+Finally, check the deployment results (make sure edgemesh-agent runs a Pod on each node):
+
+```bash
+kubectl get pod -n kubeedge -o wide
+```
+
+Now, you can access your application deployed on EDGE-Node, through your master-node-external-ip using nodeport.
