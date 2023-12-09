@@ -1,0 +1,296 @@
+---
+title: "GitLab CI/CD pipeline for Spring Boot with Vaadin"
+description: "Use this Guide to setup CI/CD pipeline for your Spring Boot application with Vaadin."
+date: "2023-07-08"
+---
+
+Use this Guide to setup CI/CD pipeline for your Spring Boot application with Vaadin.
+
+## Create new Group
+* navigate to -> "Settings" - "CI/CD" - "Variables"
+* create 3 new Variables
+### 1. REGISTRY_USER
+    <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/registry_user.webp"
+    
+      alt="registry user"
+      width={1280}
+      height={720}
+      priority={true}
+    />
+
+### 2. REGISTRY_PASS
+    <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/registry_pass.webp"
+    
+      alt="registry pass"
+      width={1280}
+      height={720}
+      priority={true}
+    />
+
+
+### 3. SSH_KEY
+    <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/ssh_key.webp"
+    
+      alt="ssh key"
+      width={1280}
+      height={720}
+      priority={true}
+    />
+
+
+> make sure to leave a line blank, at the end of the SSH key value input.
+
+    <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/update_variable.webp"
+    
+      alt="leave blank line"
+      width={1280}
+      height={720}
+      priority={true}
+    />
+
+## Create New Project
+We will use GitBash (for windows).
+
+<Link href="https://git-scm.com/download/win">Git - Downloading Package</Link>
+
+Setting up Git for Gitlab workflow.
+```
+git config --global user.name "<gitlab_username>"
+git config --global user.email "<gitlab_email_address>"
+```
+
+### Clone your blank project
+
+    <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/clone.webp"
+    
+      alt="clone your project"
+      width={1280}
+      height={720}
+      priority={true}
+    />
+
+```
+git clone https://gitlab.com/..................
+```
+
+enter in your directory
+```
+cd <directory_name>
+```
+
+here we don't have any branch created yet
+
+`git switch` command will switch into the branch you want to work in.
+
+the following command would create a new branch `main` and switch into it that every changes we made will be done inside it.
+
+```
+git switch --create main
+```
+
+Add all your files in this current directory and run following command to save changes locally.
+```
+git add -A
+```
+```
+git commit -m "your_comment_for_the_changes_made"
+```
+
+run this command to `push to the GitLab`
+
+here `main` is the branch name
+```
+git push origin main
+```
+
+>if you were working into feature branch using `git switch --feature` then the command would be `git push origin feature`
+
+## Create New Branch
+In case you want to create a branch other than `main`.
+```
+git branch <new_branch_name>
+```
+
+to switch branch
+```
+git switch <another_branch_name>
+```
+
+to delete your branch
+```
+git branch -D <branch_name>
+```
+
+## Push an existing folder
+```
+cd existing_folder
+git init --initial-branch=main
+git remote add origin https://gitlab.com/<group_name>/test.git
+git pull origin main --allow-unrelated-histories
+git add .
+git commit -m "Initial commit"
+git push --set-upstream origin main
+```
+the command `"git pull origin main --allow-unrelated-histories"` is for making sure you are on the same page before you push something.
+
+## .gitlab-ci.yml
+Here, we are using the same instance for staging and production deployment testing purposes, but the principle would be the same for different servers.
+```
+image: docker:20.10.16
+services:
+  - docker:20.10.16-dind
+
+variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay
+
+    TARGET_IMAGE_PORT: 9090
+    
+stages:
+    - build
+    - test
+    - docker
+    - deploy staging
+    - deploy production
+
+before_script:
+  - chmod +x mvnw
+  
+maven-build:
+    image: maven:3.8.5-openjdk-17
+    stage: build
+    tags:
+      - worker
+    script: "./mvnw clean package -Pproduction -e"
+    artifacts:
+        paths:
+        - target/*.jar
+
+maven-test:
+    image: maven:3.8.5-openjdk-17
+    tags:
+      - worker1
+    stage: test
+    script: "mvn test"
+    artifacts:
+        paths:
+        - target/*.jar
+
+docker-build:
+    stage: docker
+    image: docker:latest
+    services:
+      - docker:18.09.7-dind
+
+    tags:
+      - worker
+
+    variables:
+      DOCKER_HOST: tcp://docker:2375/
+      DOCKER_TLS_CERTDIR: ""
+
+      SOURCE_IMAEGE: edge
+      SOURCE_TAG: latest
+
+      TARGET_IMAGE: <username>/<image_name>
+      TARGET_TAG: <tag>
+      TARGET_IMAGE_PORT: <exposed_port>
+
+    before_script:  
+      - docker login -u $REGISTRY_USER -p $REGISTRY_PASS
+
+    script:
+      - docker build --load -t edge .
+      - docker images
+      - docker tag edge:latest <username>/<image_name>:<tag> 
+      - docker images
+      - docker push <username>/<image_name>:<tag> 
+
+
+deploy to staging:
+    stage: deploy staging
+    environment: staging
+
+    image: docker:20.10.16
+
+    services:
+      - docker:20.10.8-dind
+    tags:
+      - worker1
+
+    variables:
+      TARGET_IMAGE: <username>/<image_name>
+      TARGET_TAG: <tag>
+      TARGET_IMAGE_PORT: <exposed_port>
+
+    before_script:  
+        - chmod 400 $SSH_KEY
+    script:
+      - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@<instance_ip> "
+        docker ps -aq | xargs docker stop | xargs docker rm &&
+        docker run -d -p 80:$TARGET_IMAGE_PORT $TARGET_IMAGE:$TARGET_TAG "
+
+
+
+deploy to production:
+    stage: deploy production
+    environment: production
+
+    tags:
+      - worker
+    when: manual
+
+    variables:
+      TARGET_IMAGE: <username>/<image_name>
+      TARGET_TAG: <tag> 
+      TARGET_IMAGE_PORT: <exposed_port>
+
+    before_script:
+        - chmod 400 $SSH_KEY 
+    script:
+      - ssh -o StrictHostKeyChecking=no -i $SSH_KEY root@<instance_ip> "
+        docker ps -aq | xargs docker stop | xargs docker rm &&
+        docker run -d -p 80:$TARGET_IMAGE_PORT $TARGET_IMAGE:$TARGET_TAG "
+```
+
+## Create Merge Request
+Our goal here is to
+
+* Updating anything in Main Branch will create a new Branch.
+* Once the Merge Request is `approved, the `Source will be deleted`.
+* In our configuration, only the `Maintainer` will Merge the branch.
+### 1. Repository Settings
+    <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/repository-setting.webp"
+    
+      alt="repository setting"
+      width={1280}
+      height={720}
+    />
+
+
+
+### 2. Merge Request Settings
+
+    <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/merge-request-setting-1.webp"
+    
+      alt="merge resquest setting"
+      width={1280}
+      height={720}
+    />
+
+        <Image
+      src="/gitlab-ci-cd-pipeline-for-spring-boot-with-vaadin/merge-request-setting-2.webp"
+    
+      alt="merge request setting "
+      width={1280}
+      height={720}
+    />
+
+
