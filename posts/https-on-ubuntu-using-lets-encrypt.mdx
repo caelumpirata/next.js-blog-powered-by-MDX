@@ -1,0 +1,145 @@
+---
+title: "Https on Ubuntu using Let's Encrypt"
+description: "Hey there! 🌟 Welcome to the Complete Guide for Setting Up Nginx and SSL on Ubuntu! 🚀🔒"
+date: "2023-07-21"
+---
+
+I'm so glad you found this guide! 😊 If you're looking to deploy and secure your websites with Nginx on an Ubuntu server, you're in the right place. We've got everything covered for you, and don't worry if you're new to this - we'll walk you through each step, making it super easy and hassle-free.
+
+Let's dive right in and get started! 💪 We'll take you from installing Nginx to obtaining SSL certificates and enabling HTTPS for your domains. Plus, we'll make sure your server is well-protected by adjusting the firewall settings.
+
+Are you ready to take your server to the next level in performance, security, and user experience? Awesome! Let's begin this exciting journey to a well-configured Nginx server with SSL encryption! 😊🌐
+
+Alright, let's get going with
+
+## Step 1: Installing Nginx on Ubuntu! 🚀
+```
+sudo apt update
+sudo apt install nginx
+```
+Adjusting the Firewall
+```
+sudo ufw app list
+```
+```
+sudo ufw allow 'Nginx HTTP'
+```
+```
+sudo ufw status
+```
+
+Check Nginx web server
+```
+systemctl status nginx
+```
+Test in Browser
+```
+http://your_server_ip
+```
+
+## Step 2 - Setting Up Server Blocks
+Create the directory for `your_domain`
+```
+sudo mkdir -p /var/www/your_domain/html
+```
+```
+sudo chown -R $USER:$USER /var/www/your_domain/html
+```
+```
+sudo chmod -R 755 /var/www/your_domain
+```
+```
+nano /var/www/your_domain/html/index.html
+```
+
+Inside, add the following sample HTML
+```
+<html>
+    <head>
+        <title>Welcome to your_domain!</title>
+    </head>
+    <body>
+        <h1>Success! The your_domain server block is working!</h1>
+    </body>
+</html>
+```
+create a server block with the correct directives
+```
+sudo nano /etc/nginx/sites-available/your_domain
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/your_domain/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name your_domain.com www.your_domain;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+Next, enable the file by creating a link from it to the sites-enabled directory, which Nginx reads from during startup:
+```
+sudo ln -s /etc/nginx/sites-available/your_domain /etc/nginx/sites-enabled/
+```
+To avoid a possible hash bucket memory problem that can arise from adding additional server names, it is necessary to adjust a single value in the /etc/nginx/nginx.conf file. Open the file:
+```
+sudo nano /etc/nginx/nginx.conf
+```
+Find the `server_names_hash_bucket_size` directive and remove the #` symbol to uncomment the line
+```
+...
+http {
+    ...
+    server_names_hash_bucket_size 64;
+    ...
+}
+...
+```
+Next, test to make sure that there are no syntax errors in any of your Nginx files:
+```
+sudo nginx -t
+```
+restart Nginx to enable your changes:
+
+sudo systemctl restart nginx
+> visit - http://your_domain
+
+`Success! your_domain server block is working! `
+
+## Step 3 - Installing Certbot
+```
+sudo snap install --classic certbot
+```
+create a symbolic link to the newly installed `/snap/bin/certbot` executable from the `/usr/bin/` directory
+```
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+## Step 4 - Obtaining  SSL certificate
+To let in additional HTTPS traffic, allow the Nginx Full profile and delete the redundant Nginx HTTP profile allowance:
+```
+sudo ufw allow 'Nginx Full'
+sudo ufw delete allow 'Nginx HTTP'
+```
+Certbot provides a variety of ways to obtain SSL certificates through plugins. The Nginx plugin will take care of reconfiguring Nginx and reloading the configuration whenever necessary. To use this plugin, run the following:
+```
+sudo certbot --nginx -d your_domain
+```
+If this is your first time running certbot, you will be prompted to enter an email address and agree to the terms of service. After doing so, certbot will communicate with the Let’s Encrypt server to request a certificate for your domain
+    <Image
+      src="/certbot_output.webp"
+    
+      alt="Comparison between different 4K display ratios"
+      width={1280}
+      height={720}
+      priority={true}
+    />
+> Visit - https://your_domain
+
+## Step 5 - Verifying Certbot auto Renewal
+```
+sudo certbot renew --dry-run
+```
+If you don’t receive errors, you’re all set.
