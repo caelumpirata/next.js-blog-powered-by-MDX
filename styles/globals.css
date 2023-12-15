@@ -4,6 +4,11 @@
 
 /*! tailwindcss v2.2.4 | MIT License | https://tailwindcss.com */
 /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+
+body {
+  background-size: 40px 40px;
+  background-image: radial-gradient(circle, #737373 1px, rgba(0, 0, 0, 0) 1px);
+}
 html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
