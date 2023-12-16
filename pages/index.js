@@ -24,7 +24,7 @@ export default function Home() {
           <header className="flex flex-col-reverse justify-between sm:flex-row sm:items-center">
             <div className="sm:max-w-md">
               <h1 className="font-regular mt-4 text-black dark:text-white text-4xl tracking-tight sm:mt-0">
-                Hey! <span>👋</span> This&apos;s <b className="flicker">Caelum</b>
+                Hey! <span>👋</span> This&apos;s <b>Caelum</b>
               </h1>
               <p className="prose dark:prose-dark md:prose-lg mt-8 sm:mt-4">
                 Welcome to his Online home. He writes software, mostly for the
